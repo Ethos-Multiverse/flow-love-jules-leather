@@ -1,19 +1,14 @@
   
 # LoveJulesLeather.cdc
----
 ## Introduction  
----
 Contract on the Flow blockchain that allows Admins to batch mint native NFTs(`LoveJulesLeather`).
 Admins are granted power through the `Admin` resource.
 Admins can withdraw NFTs that reside in the `LoveJulesLeatherCollection` resource to recipients
 ## Live Project  
----
 link
 ## Video demo  
----
 link
 ## Roadmap  
----
 ### V1:
 Restricted functions, resources, and capabilities.
 * [Admin] Batch mint native NFTs
@@ -21,7 +16,6 @@ Restricted functions, resources, and capabilities.
 * [Admin] Destroy native NFT resource
 * [Admin] Batch destroy native NFT resource
 ## Metadata schema
----
 ``` javascript
 		  {
 		     "description":"A digital version of the Love Jules Leather signature tiger image",
@@ -32,7 +26,6 @@ Restricted functions, resources, and capabilities.
 		  }
 ```
 ## Contract Description
----
 ``` javascript
 		  /*
 		      Description: Central Smart Contract for Love Jules Leather
@@ -65,7 +58,6 @@ Restricted functions, resources, and capabilities.
 		  */
 ```
 ## Sequence Diagram  
----
 **Transactions**
 Admin
 Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
@@ -124,7 +116,6 @@ Admin sends tx to get all NFT ids
 Admin sends tx to get an NFT by id
 User
 ## Class Diagram
----
 `NFT` resource
 ``` mermaid
 			  classDiagram
