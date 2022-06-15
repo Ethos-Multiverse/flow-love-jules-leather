@@ -55,9 +55,21 @@ pub contract LoveJulesLeather {
   // -----------------------------------------------------------------------
   // LoveJulesLeather Named Paths
   // -----------------------------------------------------------------------
-  
+
   pub let CollectionStoragePath: StoragePath
   pub let CollectionPublicPath: PublicPath
   pub let AdminStoragePath: StoragePath
   pub let AdminPrivatePath: PrivatePath
+
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather contract-level fields.
+  // These contain actual values that are stored in the smart contract.
+  // -----------------------------------------------------------------------
+
+  // The total number of Love Jules Leather NFTs that have been created
+  // Because NFTs can be destroyed, it doesn't necessarily mean that this
+  // reflects the total number of NFTs in existence, just the number that
+  // have been minted to date. Also used as NFT IDs for minting.
+  pub var totalSupply: UInt64
+
 }
