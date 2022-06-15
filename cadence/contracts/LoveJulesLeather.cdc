@@ -229,4 +229,15 @@ pub contract LoveJulesLeather {
     }
   }
 
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather contract-level function definitions
+  // -----------------------------------------------------------------------
+
+  // createEmptyCollection
+  // public function that anyone can call to create a new empty collection
+  //
+  pub fun createEmptyCollection(): @NonFungibleToken.Collection {
+    return <- create Collection()
+  }
+
 }
