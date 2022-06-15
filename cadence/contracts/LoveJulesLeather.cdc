@@ -193,17 +193,6 @@ pub contract LoveJulesLeather: NonFungibleToken {
     }
   }
 
-  // -----------------------------------------------------------------------
-  // LoveJulesLeather contract-level function definitions
-  // -----------------------------------------------------------------------
-
-  // createEmptyCollection
-  // public function that anyone can call to create a new empty collection
-  //
-  pub fun createEmptyCollection(): @NonFungibleToken.Collection {
-    return <- create Collection()
-  }
-
   // Admin is a special authorization resource that
   // allows the owner to perform important NFT
   // functions
@@ -236,6 +225,17 @@ pub contract LoveJulesLeather: NonFungibleToken {
     pub fun createNewAdmin(): @Admin {
       return <- create Admin()
     }
+  }
+
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather contract-level function definitions
+  // -----------------------------------------------------------------------
+
+  // createEmptyCollection
+  // public function that anyone can call to create a new empty collection
+  //
+  pub fun createEmptyCollection(): @NonFungibleToken.Collection {
+    return <- create Collection()
   }
 
   // -----------------------------------------------------------------------
