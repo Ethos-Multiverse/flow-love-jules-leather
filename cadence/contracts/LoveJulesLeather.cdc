@@ -162,4 +162,14 @@ pub contract LoveJulesLeather {
     }
   }
 
+  // The interface that users can cast their LoveJulesLeather Collection as
+  // to allow others to deposit LoveJulesLeather into thier Collection. It also
+  // allows for the reading of the details of LoveJulesLeather
+  pub resource interface CollectionPublic {
+    pub fun deposit(token: @NonFungibleToken.NFT)
+    // pub fun batchDeposits(tokens: @NonFungibleToken.NFT)
+    pub fun getIDs(): [UInt64]
+    pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+  }
+
 }
