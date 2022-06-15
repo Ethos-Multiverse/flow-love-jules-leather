@@ -121,8 +121,12 @@ pub contract LoveJulesLeather: NonFungibleToken {
   // to allow others to deposit LoveJulesLeather into thier Collection. It also
   // allows for the reading of the details of LoveJulesLeather
   pub resource interface CollectionPublic {
+    pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
+    pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT
     pub fun deposit(token: @NonFungibleToken.NFT)
     pub fun getIDs(): [UInt64]
+    pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+    pub fun borrowEntireNFT(id: UInt64): &NonFungibleToken.NFT?
   }
 
   // Collection is a resource that every user who owns NFTs
