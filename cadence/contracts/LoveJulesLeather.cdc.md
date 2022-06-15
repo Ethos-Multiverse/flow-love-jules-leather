@@ -16,10 +16,10 @@ link
 ---
 ### V1:
 Restricted functions, resources, and capabilities.
-[Admin] Batch mint native NFTs
-[Admin] Send native NFT to recipients
-[Admin] Destroy native NFT resource
-[Admin] Batch destroy native NFT resource
+* [Admin] Batch mint native NFTs
+* [Admin] Send native NFT to recipients
+* [Admin] Destroy native NFT resource
+* [Admin] Batch destroy native NFT resource
 ## Metadata schema
 ---
 ``` javascript
