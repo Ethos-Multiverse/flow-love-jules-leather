@@ -122,6 +122,7 @@ pub contract LoveJulesLeather: NonFungibleToken {
   // allows for the reading of the details of LoveJulesLeather
   pub resource interface CollectionPublic {
     pub fun deposit(token: @NonFungibleToken.NFT)
+    pub fun getIDs(): [UInt64]
   }
 
   // Collection is a resource that every user who owns NFTs
@@ -157,15 +158,30 @@ pub contract LoveJulesLeather: NonFungibleToken {
       return self.ownedNFTs.keys
     }
 
-    // borrowNFT gets a reference to an NFT in the collection
-    // so that the caller can read its metadata and call its methods
+    // borrowNFT Returns a borrowed reference to a LoveJulesLeather NFT in the Collection
+    // so that the caller can read its ID
+    //
+    // Parameters: id: The ID of the NFT to get the reference for
+    //
+    // Returns: A reference to the NFT
     pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
       return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
     }
 
-    pub fun borrowEntireNFT(id: UInt64): &LoveJulesLeather.NFT {
-      let reference = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
-      return reference as! &LoveJulesLeather.NFT
+    // borrowEntireNFT returns a borrowed reference to a LoveJulesLeather 
+    // NFT so that the caller can read its data.
+    // They can use this to read its id, description, and serial_number.
+    //
+    // Parameters: id: The ID of the NFT to get the reference for
+    //
+    // Returns: A reference to the NFT
+    pub fun borrowEntireNFT(id: UInt64): &LoveJulesLeather.NFT? {
+      if self.ownedNFTs[id] != nil {
+        let reference = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
+        return reference as! &LoveJulesLeather.NFT
+      } else {
+        return nil
+      }
     }
 
     init() {
