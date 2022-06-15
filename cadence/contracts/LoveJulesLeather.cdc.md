@@ -170,6 +170,6 @@ User
 			  }
 ```
 ## Technical
-Frontend
-Storage
-Smart Contract
+* Frontend
+* Storage
+* Smart Contract
