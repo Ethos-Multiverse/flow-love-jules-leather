@@ -240,4 +240,30 @@ pub contract LoveJulesLeather {
     return <- create Collection()
   }
 
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather initialization function
+  // -----------------------------------------------------------------------
+  //
+
+  // initializer
+  //
+  init() {
+
+    // Set named paths
+    self.CollectionStoragePath = /storage/LoveJulesLeatherCollection
+    self.CollectionPublicPath = /public/LoveJulesLeatherCollection
+    self.AdminStoragePath = /storage/LoveJulesLeatherAdmin
+    self.AdminPrivatePath = /private/LoveJulesLeatherAdminUpgrade
+
+    // Initialize total supply count
+    self.totalSupply = 0
+
+    // Create an Admin resource and save it to storage
+    self.account.save(<-create Admin(), to: self.AdminStoragePath)
+
+    self.account.link<&LoveJulesLeather.Admin>(self.AdminPrivatePath, target: self.AdminStoragePath) ?? panic("Could not get a capability to the admin")
+
+    emit ContractInitialized()
+  }
+
 }
