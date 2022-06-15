@@ -68,7 +68,7 @@ Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
 					  A->>L: batchMint tx args(arrayOfMetadataObjects)
 					  L->>A: Receives batch of LoveJulesLeather NFTs into LoveJulesLeatherCollection
 ```
-^^Admin sends tx to withdraw NFT from storage and deposit it to claimer^^
+Admin sends tx to withdraw NFT from storage and deposit it to claimer
 ``` mermaid
 					  sequenceDiagram
 					  participant L as LoveJulesLeather.cdc
