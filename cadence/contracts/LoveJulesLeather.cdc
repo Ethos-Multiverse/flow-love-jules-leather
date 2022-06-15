@@ -51,4 +51,13 @@ pub contract LoveJulesLeather {
 
   // Emmited when a LoveJulesLeather NFT is destroyed
   pub event NFTDestroyed(id: UInt64)
+
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather Named Paths
+  // -----------------------------------------------------------------------
+  
+  pub let CollectionStoragePath: StoragePath
+  pub let CollectionPublicPath: PublicPath
+  pub let AdminStoragePath: StoragePath
+  pub let AdminPrivatePath: PrivatePath
 }
