@@ -66,10 +66,66 @@ pub contract LoveJulesLeather {
   // These contain actual values that are stored in the smart contract.
   // -----------------------------------------------------------------------
 
-  // The total number of Love Jules Leather NFTs that have been created
+  // The total number of LoveJulesLeather NFTs that have been created
   // Because NFTs can be destroyed, it doesn't necessarily mean that this
   // reflects the total number of NFTs in existence, just the number that
   // have been minted to date. Also used as NFT IDs for minting.
   pub var totalSupply: UInt64
+
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather contract-level Composite Type definitions
+  // -----------------------------------------------------------------------
+  // These are just *definitions* for Types that this contract
+  // and other accounts can use. These definitions do not contain
+  // actual stored values, but an instance (or object) of one of these Types
+  // can be created by this contract that contains stored values.
+  // -----------------------------------------------------------------------
+
+  // The resource that represents the LoveJulesLeather NFTs
+  //
+  pub resource NFT: NonFungibleToken.INFT, MetadataViews.Resolver {
+    pub let id: UInt64
+
+    pub let name: String
+    pub let description: String
+    pub let image: String
+    pub let external_url: String
+    pub let serial_number: String
+
+    pub var metadata: {String: String}
+
+    pub fun getViews(): [Type] {
+      return [
+        Type<MetadataViews.Display>()
+      ]
+    }
+
+    pub fun resolveView(_ view: Type): AnyStruct? {
+      switch view {
+        case Type<MetadataViews.Display>():
+          return MetadataViews.Display(
+            name: self.name,
+            description: self.description,
+            thumbnail: MetadataViews.HTTPFile(url: self.external_url)
+          )
+      }
+      return nil 
+    }
+
+    init(_metadata: {String: String}) {
+      self.id = LoveJulesLeather.totalSupply
+      self.name = _metadata["name"]!
+      self.description = _metadata["description"]!
+      self.image = _metadata["image"]!
+      self.external_url = _metadata["external_url"]!
+      self.serial_number = _metadata["serial_number"]!
+      self.metadata = _metadata
+
+      LoveJulesLeather.totalSupply = LoveJulesLeather.totalSupply + 1
+
+      emit Minted(id: self.id)
+
+    }
+  }
 
 }
