@@ -100,7 +100,7 @@ pub contract LoveJulesLeather: NonFungibleToken {
           return MetadataViews.Display(
             name: self.metadata["name"]!,
             description: self.metadata["description"]!,
-            thumbnail: MetadataViews.HTTPFile(url: self.metadata["thumbnail"]!)
+            thumbnail: MetadataViews.HTTPFile(url: self.metadata["external_url"]!)
           )
       }
       return nil 
