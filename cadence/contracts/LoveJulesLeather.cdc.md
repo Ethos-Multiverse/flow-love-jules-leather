@@ -129,26 +129,26 @@ User
 ``` mermaid
 			  classDiagram
 			  class CollectionPublic{
-			  +deposit(token: NFT) 
-			  +batchDeposit(tokens: NFTCollection)
-			  +borrowNFT(id: UInt64): NonFungibleTokenNFT
-			  +borrowEntireNFT(id: UInt64) LoveJulesLeatherNFT
-			  +getIDs()  Array UInt64
+				+Dictionary ownedNFTs
+				+withdraw(withdrawID: UInt64)
+				+deposit(token: NFT) 
+				+getIDs()  Array UInt64
+				+borrowNFT(id: UInt64): NonFungibleTokenNFT
+				+borrowEntireNFT(id: UInt64) LoveJulesLeatherNFT
 			  }
 ```
 `Collection` resource
 ``` mermaid
 			  classDiagram
 			  class Collection{
-			  +Dictionary ownedNFTs
-			  +withdraw(withdrwaID: UInt64) NFT
-			  +batchWithdraw(ids: Array UInt64) NFTCollection
-			  +deposit(token: NFT)
-			  +batchDeposit(tokens: NFTCollection)
-			  +getIDs() Array UInt64
-			  +borrowNFT(id: UInt64) NFT
-			  -destroy()
-			  -init()
+				+Dictionary ownedNFTs
+				+withdraw(withdrwaID: UInt64) NFT
+				+deposit(token: NFT)
+				+getIDs() Array UInt64
+				+borrowNFT(id: UInt64) NFT
+				+borrowEntireNFT(id: UInt64) NFT
+				-destroy()
+				-init()
 			  }
 ```
 `Admin` resource
