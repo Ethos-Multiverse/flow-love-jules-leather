@@ -172,4 +172,61 @@ pub contract LoveJulesLeather {
     pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
   }
 
+  // Collection is a resource that every user who owns NFTs
+  // will store in theit account to manage their NFTs
+  pub resource Collection: NonFungibleToken.Receiver, NonFungibleToken.Provider, NonFungibleToken.CollectionPublic, CollectionPublic {
+    // dictionary of NFT conforming tokens
+    // NFT is a resource type with an UInt64 ID field
+    //
+    pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
+
+    // withdraw
+    // Removes an NFT from the collection and moves it to the caller
+    //
+    pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
+      let token <- self.ownedNFTs.remove(key: withdrawID) ?? panic("Missing NFT")
+
+      emit Withdraw(id: token.id, from: self.owner?.address)
+
+      return <- token
+    }
+
+    // deposit
+    // Takes a NFT and adds it to the collections dictionary
+    //
+    pub fun deposit(token: @NonFungibleToken.NFT) {
+      let myToken <- token as! @LoveJulesLeather.NFT
+      emit Deposit(id: myToken.id, to: self.owner?.address)
+      self.ownedNFTs[myToken.id] <-! myToken
+    }
+
+    // getIDs returns an arrat of the IDs that are in the collection
+    pub fun getIDs(): [UInt64] {
+      return self.ownedNFTs.keys
+    }
+
+    // borrowNFT gets a reference to an NFT in the collection
+    // so that the caller can read its metadata and call its methods
+    pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
+      return &self.ownedNFTs[id] as &NonFungibleToken.NFT
+    }
+
+    pub fun borrowLoveJulesNFT(id: UInt64): &LoveJulesLeather.NFT? {
+      if self.ownedNFTs[id] != nil {
+        // Create an authorized reference to allow downcasting
+        let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
+        return ref as! &LoveJulesLeather.NFT
+      }
+      return nil
+    }
+
+    init() {
+      self.ownedNFTs <- {}
+    }
+
+    destroy() {
+      destroy self.ownedNFTs
+    }
+  }
+
 }
