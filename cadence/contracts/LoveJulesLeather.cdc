@@ -27,3 +27,28 @@
     Functions that don't modify state will simply return 0 or nil 
     and those cases need to be handled by the caller.
 */
+
+import NonFungibleToken from "../standard/NonFungibleToken.cdc"
+import MetadataViews from 0xf8d6e0586b0a20c7
+ 
+pub contract LoveJulesLeather {
+  
+  // -----------------------------------------------------------------------
+  // LoveJulesLeather contract Events
+  // -----------------------------------------------------------------------
+
+  // Emited when the LoveJulesLeather contract is created
+  pub event ContractInitialized()
+
+  // Emmited when a user transfers a LoveJulesLeather NFT out of their collection
+  pub event Withdraw(id: UInt64, from: Address?)
+
+  // Emmited when a user recieves a LoveJuleLeather NFT into their collection
+  pub event Deposit(id: UInt64, to: Address?)
+
+  // Emmited when a LoveJulesLeather NFT is minted
+  pub event Minted(id: UInt64)
+
+  // Emmited when a LoveJulesLeather NFT is destroyed
+  pub event NFTDestroyed(id: UInt64)
+}
