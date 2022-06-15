@@ -29,9 +29,9 @@
 */
 
 import NonFungibleToken from "../standard/NonFungibleToken.cdc"
-import MetadataViews from 0xf8d6e0586b0a20c7
+import MetadataViews from "../standard/MetadataViews.cdc"
  
-pub contract LoveJulesLeather {
+pub contract LoveJulesLeather: NonFungibleToken {
   
   // -----------------------------------------------------------------------
   // LoveJulesLeather contract Events
@@ -86,12 +86,6 @@ pub contract LoveJulesLeather {
   pub resource NFT: NonFungibleToken.INFT, MetadataViews.Resolver {
     pub let id: UInt64
 
-    pub let name: String
-    pub let description: String
-    pub let image: String
-    pub let external_url: String
-    pub let serial_number: String
-
     pub var metadata: {String: String}
 
     pub fun getViews(): [Type] {
@@ -104,9 +98,9 @@ pub contract LoveJulesLeather {
       switch view {
         case Type<MetadataViews.Display>():
           return MetadataViews.Display(
-            name: self.name,
-            description: self.description,
-            thumbnail: MetadataViews.HTTPFile(url: self.external_url)
+            name: self.metadata["name"]!,
+            description: self.metadata["description"]!,
+            thumbnail: MetadataViews.HTTPFile(url: self.metadata["thumbnail"]!)
           )
       }
       return nil 
@@ -114,11 +108,6 @@ pub contract LoveJulesLeather {
 
     init(_metadata: {String: String}) {
       self.id = LoveJulesLeather.totalSupply
-      self.name = _metadata["name"]!
-      self.description = _metadata["description"]!
-      self.image = _metadata["image"]!
-      self.external_url = _metadata["external_url"]!
-      self.serial_number = _metadata["serial_number"]!
       self.metadata = _metadata
 
       LoveJulesLeather.totalSupply = LoveJulesLeather.totalSupply + 1
@@ -128,47 +117,11 @@ pub contract LoveJulesLeather {
     }
   }
 
-  // Admin is a special authorization resource that
-  // allows the owner to perform important NFT
-  // functions
-  pub resource Admin {
-    
-    // mintLoveJulesLeatherNFT
-    // Mints an new NFT
-    // and deposits it in the Admins collection
-    //
-    pub fun mintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: {String: String}) {
-      // create a new NFT 
-      var newNFT <- create NFT(_metadata: metadata)
-
-      // Deposit it in Admins account using their reference
-      recipient.deposit(token: <- newNFT)
-    }
-
-    // batchMintNFT
-    // Batch mints LoveJulesNFTs
-    // and deposits in the Admins collection
-    //
-    pub fun batchMintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadataArray: [{String: String}]) {
-      var i: Int = 0
-      while i < metadataArray.length {
-        self.mintLoveJulesLeatherNFT(recipient: recipient, metadata: metadataArray[i])
-        i = i + 1;
-      }
-    }
-
-    pub fun createNewAdmin(): @Admin {
-      return <- create Admin()
-    }
-  }
-
   // The interface that users can cast their LoveJulesLeather Collection as
   // to allow others to deposit LoveJulesLeather into thier Collection. It also
   // allows for the reading of the details of LoveJulesLeather
   pub resource interface CollectionPublic {
     pub fun deposit(token: @NonFungibleToken.NFT)
-    pub fun getIDs(): [UInt64]
-    pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
   }
 
   // Collection is a resource that every user who owns NFTs
@@ -207,16 +160,12 @@ pub contract LoveJulesLeather {
     // borrowNFT gets a reference to an NFT in the collection
     // so that the caller can read its metadata and call its methods
     pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
-      return &self.ownedNFTs[id] as &NonFungibleToken.NFT
+      return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
     }
 
-    pub fun borrowLoveJulesNFT(id: UInt64): &LoveJulesLeather.NFT? {
-      if self.ownedNFTs[id] != nil {
-        // Create an authorized reference to allow downcasting
-        let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
-        return ref as! &LoveJulesLeather.NFT
-      }
-      return nil
+    pub fun borrowEntireNFT(id: UInt64): &LoveJulesLeather.NFT {
+      let reference = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
+      return reference as! &LoveJulesLeather.NFT
     }
 
     init() {
@@ -237,6 +186,40 @@ pub contract LoveJulesLeather {
   //
   pub fun createEmptyCollection(): @NonFungibleToken.Collection {
     return <- create Collection()
+  }
+
+  // Admin is a special authorization resource that
+  // allows the owner to perform important NFT
+  // functions
+  pub resource Admin {
+    
+    // mintLoveJulesLeatherNFT
+    // Mints an new NFT
+    // and deposits it in the Admins collection
+    //
+    pub fun mintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: {String: String}) {
+      // create a new NFT 
+      var newNFT <- create NFT(_metadata: metadata)
+
+      // Deposit it in Admins account using their reference
+      recipient.deposit(token: <- newNFT)
+    }
+
+    // batchMintNFT
+    // Batch mints LoveJulesNFTs
+    // and deposits in the Admins collection
+    //
+    pub fun batchMintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadataArray: [{String: String}]) {
+      var i: Int = 0
+      while i < metadataArray.length {
+        self.mintLoveJulesLeatherNFT(recipient: recipient, metadata: metadataArray[i])
+        i = i + 1;
+      }
+    }
+
+    pub fun createNewAdmin(): @Admin {
+      return <- create Admin()
+    }
   }
 
   // -----------------------------------------------------------------------
