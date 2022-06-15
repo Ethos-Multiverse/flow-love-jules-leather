@@ -128,4 +128,38 @@ pub contract LoveJulesLeather {
     }
   }
 
+  // Admin is a special authorization resource that
+  // allows the owner to perform important NFT
+  // functions
+  pub resource Admin {
+    
+    // mintLoveJulesLeatherNFT
+    // Mints an new NFT
+    // and deposits it in the Admins collection
+    //
+    pub fun mintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadata: {String: String}) {
+      // create a new NFT 
+      var newNFT <- create NFT(_metadata: metadata)
+
+      // Deposit it in Admins account using their reference
+      recipient.deposit(token: <- newNFT)
+    }
+
+    // batchMintNFT
+    // Batch mints LoveJulesNFTs
+    // and deposits in the Admins collection
+    //
+    pub fun batchMintLoveJulesLeatherNFT(recipient: &{NonFungibleToken.CollectionPublic}, metadataArray: [{String: String}]) {
+      var i: Int = 0
+      while i < metadataArray.length {
+        self.mintLoveJulesLeatherNFT(recipient: recipient, metadata: metadataArray[i])
+        i = i + 1;
+      }
+    }
+
+    pub fun createNewAdmin(): @Admin {
+      return <- create Admin()
+    }
+  }
+
 }
