@@ -8,11 +8,11 @@ Admins can withdraw NFTs that reside in the `LoveJulesLeatherCollection` resourc
 
 ## Live Project
 
----
+N/A
 
 ## Video demo
 
----
+N/A
 
 ## Roadmap
 
