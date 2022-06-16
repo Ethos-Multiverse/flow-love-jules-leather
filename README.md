@@ -1,5 +1,4 @@
 # Love Jules Leather
----
 ## Introduction
 This repository contains the smart contracts and transactions that implement the core functionality of Love Jules Leather.
 This repository also contains a react Admin interface that interacts with the smart contracts.
@@ -11,14 +10,15 @@ A lifetime discount on all future purchases.
 ### Contribution
 If you see an issue with the code for the contracts, the transactions, scripts, documentation, or anything else, please do not hesitate to make an issue or a pull request with your desired changes. This is an open source project and we welcome all assistance from the community!
 ## Love Jules Leather Contract Addresses
----
 `LoveJulesLeather.cdc`: This is the main Love Jules Leather smart contract that defines the core functionality of the NFT.
 
 | **Network** | **Contract Address** |
 |---|---|
 | Testnet | ---- |
 | Mainnet | ---- |
-`LoveJulesLeatherMarket.cdc`: This is the love jules leather marketplace contract that allows users to buy and sell their NFTs.
+
+`LoveJulesLeatherMarket.cdc`: This is the love jules 
+leather marketplace contract that allows users to buy and sell their NFTs.
 
 | **Network** | **Contract Address** |
 |---|---|
@@ -28,7 +28,6 @@ If you see an issue with the code for the contracts, the transactions, scripts, 
 The Love Jules Leather contracts utilize the [Flow NFT standard](https://github.com/onflow/flow-nft) which is equivalent to ERC-721 or ERC-1155 on Ethereum.
 ### Love Jules Marketplace contract
 ## Directory Structure
----
 The directories here are organized into `cadence` and `interface`.
 Cadence contains the contracts, scripts, and transactions.
 Interface contains the react Admin dApp that interacts with the smart contracts.
