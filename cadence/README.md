@@ -1,33 +1,46 @@
-  
 # LoveJulesLeather.cdc
-## Introduction  
+
+## Introduction
+
 Contract on the Flow blockchain that allows Admins to batch mint native NFTs(`LoveJulesLeather`).
 Admins are granted power through the `Admin` resource.
 Admins can withdraw NFTs that reside in the `LoveJulesLeatherCollection` resource to recipients
-## Live Project  
+
+## Live Project
+
 link
-## Video demo  
+
+## Video demo
+
 link
-## Roadmap  
+
+## Roadmap
+
 ### V1:
+
 Restricted functions, resources, and capabilities.
-* [Admin] Batch mint native NFTs
-* [Admin] Send native NFT to recipients
-* [Admin] Destroy native NFT resource
-* [Admin] Batch destroy native NFT resource
+
+- [Admin] Mint native NFTs
+- [Admin] Batch mint native NFTs
+- [Admin] Send native NFT to recipients
+- [Admin] Destroy native NFT resource
+
 ## Metadata schema
-``` javascript
-		  {
-		     "description":"A digital version of the Love Jules Leather signature tiger image",
-		     "external_url":"https://ethos.customlink",
-		     "image":"https://ipfs.io/ipfs/QmSNpzoJsYaqGybdVKtRpynRaGGKJYkLYVXcBKyyApvbeN",
-		     "name":"Love Jules Leather",
-		     "serial_number":"0000-00-000"
-		  }
+
+```javascript
+		{
+			"description":"12 years from our inception, we find ourselves at a crossroads. To mark and celebrate this next chapter, we're releasing our very first limited run NFT (Non Fungible Token). The 50 folks who choose to support us through this foundational project will forever have first dibs on each and every limited run release, as well as a lifetime discount on all future purchases. Family. First. Forever.",
+			"external_url":"https://ethos.customlink",
+			"image":"https://ipfs.io/ipfs/QmSNpzoJsYaqGybdVKtRpynRaGGKJYkLYVXcBKyyApvbeN",
+			"name":"Love Jules Leather: 2010 NON FUNGIBLE TIGER HEAD",
+			"serial_number":"2010.NFTH.50.##"
+		}
 ```
+
 ## Contract Description
-``` javascript
-		  /*
+
+```javascript
+/*
 		      Description: Central Smart Contract for Love Jules Leather
 		      
 		      This smart contract contains the core functionality for 
@@ -57,39 +70,48 @@ Restricted functions, resources, and capabilities.
 		      and those cases need to be handled by the caller.
 		  */
 ```
-## Sequence Diagram  
+
+## Sequence Diagram
+
 **Transactions**
 Admin
 Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
-``` mermaid
+
+```mermaid
 					  sequenceDiagram
 					  participant L as LoveJulesLeather.cdc
 					  actor A as AuthEthos
 					  A->>L: batchMint tx args(arrayOfMetadataObjects)
 					  L->>A: Receives batch of LoveJulesLeather NFTs into LoveJulesLeatherCollection
 ```
+
 Admin sends tx to withdraw NFT from storage and deposit it to claimer
-``` mermaid
+
+```mermaid
 					  sequenceDiagram
 					  participant L as LoveJulesLeather.cdc
 					  actor A as AuthEthos
 					  actor U as User
 					  A->>L: withdraw tx args(claimerWallet, nftId)
-					  L->>U: Receives LoveJulesLeather NFT 
+					  L->>U: Receives LoveJulesLeather NFT
 ```
+
 Admin sends tx to create a new Admin Resource
-``` mermaid
+
+```mermaid
 					  sequenceDiagram
 					  participant L as LoveJulesLeather.cdc
 					  actor A as AuthEthos
 					  actor A2 as AuthEthos2
-					  A->>L: createNewAdmin tx 
-					  L->>A2: Receives Admin resource 
+					  A->>L: createNewAdmin tx
+					  L->>A2: Receives Admin resource
 ```
+
 Admin sends tx to destroy Admin resource
 User
 User sends a tx requesting a `LoveJulesLeatherCollection` object
-``` mermaid
+
+```mermaid
 					  sequenceDiagram
 					        participant L as LoveJulesLeather.cdc
 					       actor A as AuthEthos
@@ -98,16 +120,19 @@ User sends a tx requesting a `LoveJulesLeatherCollection` object
 					       U->>L: setupUser tx
 					       L->>U: Receives LoveJulesLeatherCollection
 ```
+
 ~~User sends a tx requesting to claim their `LoveJulesLeather` NFT~~
-``` mermaid
+
+```mermaid
 					  sequenceDiagram
 					        participant L as LoveJulesLeather.cdc
 					       actor A as AuthEthos
 					       actor U as User
 					       L->A: owner
 					       U->>L: claimNFT tx args(claimerWallet, nftId)
-					       L->>U: Receives LoveJulesLeather NFT 
+					       L->>U: Receives LoveJulesLeather NFT
 ```
+
 The Admin will take care of this sequence. User abstracted away from the process.
 **Scripts**
 Admin
@@ -115,9 +140,12 @@ Admin sends tx to get all NFT ids
 ~~Admin sents tx to get all NFTs~~
 Admin sends tx to get an NFT by id
 User
+
 ## Class Diagram
+
 `NFT` resource
-``` mermaid
+
+```mermaid
 			  classDiagram
 			  class NFT{
 			  +UInt64 id
@@ -125,20 +153,24 @@ User
 			  ~init(metadata: string)
 			  }
 ```
+
 `CollectionPublic` resource interface
-``` mermaid
+
+```mermaid
 			  classDiagram
 			  class CollectionPublic{
 				+Dictionary ownedNFTs
 				+withdraw(withdrawID: UInt64)
-				+deposit(token: NFT) 
+				+deposit(token: NFT)
 				+getIDs()  Array UInt64
 				+borrowNFT(id: UInt64): NonFungibleTokenNFT
 				+borrowEntireNFT(id: UInt64) LoveJulesLeatherNFT
 			  }
 ```
+
 `Collection` resource
-``` mermaid
+
+```mermaid
 			  classDiagram
 			  class Collection{
 				+Dictionary ownedNFTs
@@ -151,8 +183,10 @@ User
 				-init()
 			  }
 ```
+
 `Admin` resource
-``` mermaid
+
+```mermaid
 			  classDiagram
 			  class Admin{
 			  +mintNFT(metadata: Array String)
@@ -160,7 +194,9 @@ User
 			  +createNewAdmin() Admin
 			  }
 ```
+
 ## Technical
-* Frontend
-* Storage
-* Smart Contract
+
+- Frontend
+- Storage
+- Smart Contract
