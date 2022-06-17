@@ -4,11 +4,15 @@ import "./flow/config";
 
 function App() {
   const [user, setUser] = useState();
+  const [transactionStatus, setTransactionStatus] = useState("---");
+  const [isSetup, setIsSetup] = useState(false);
 
   // Update user on page load
   useEffect(() => {
     fcl.currentUser.subscribe(setUser);
   }, []);
+
+  console.log(user.loggedIn);
 
   // Authenticate user
   const AuthedState = () => {
