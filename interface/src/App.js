@@ -1,9 +1,14 @@
 import * as fcl from "@onflow/fcl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./flow/config";
 
 function App() {
   const [user, setUser] = useState();
+
+  // Update user on page load
+  useEffect(() => {
+    fcl.currentUser.subscribe(setUser);
+  }, []);
 
   // Authenticate user
   const AuthedState = () => {
