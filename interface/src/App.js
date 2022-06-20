@@ -1,11 +1,18 @@
 import * as fcl from "@onflow/fcl";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import "./flow/config";
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
+const App = () => {
   const [user, setUser] = useState();
   const [transactionStatus, setTransactionStatus] = useState("---");
+  const [mintTxStatus, setMintTxStatus] = useState("---");
+  const [setupTxStatus, setSetupTxStatus] = useState("---");
   const [isSetup, setIsSetup] = useState(false);
+
+  // Toasty
+  toast.error("Ohhh Shit")
 
   // Update user on page load
   useEffect(() => {
@@ -13,6 +20,16 @@ function App() {
   }, []);
 
   console.log(user);
+
+  // Batch mint 
+  const batchMint = async () => {
+    return "hey"
+  }
+
+  // Setup user
+  const setupUser = async () => {
+    return "hey"
+  }
 
   // Authenticate user
   const AuthedState = () => {
@@ -69,6 +86,52 @@ function App() {
             <p>Tokens Minted: ---</p>
             <p>Contract Value: ---</p>
             <p>Transaction Status: {transactionStatus}</p>
+          </div>
+
+          {/* Batch Mint */}
+          <div className="space-y-8">
+            <div className="bg-gray-100 p-4 lg:p-8">
+              <div className="text-center">
+                <h2 className="text-2xl font-semibold mb-2">Mint NFTs</h2>
+                <label className="text-gray-600 text-sm mb-2 inline-block">
+                  {/* {isSetup
+                    ? "Currently restricted to one NFT per mint"
+                    : "You must send an approval transaction before minting"} */}
+                    Setup before minting. Batch mint restricted to 6 NFTs.
+                </label>
+                <div className="flex justify-center">
+                  {/* {isSetup ? (
+                    <button
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-tr rounded-br rounded-tl rounded-bl w-1/3 "
+                      onClick={() => batchMint()}
+                    >
+                      {"Mint"}
+                    </button>
+                  ) : (
+                    <button
+                      className="mr-20 bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-tr rounded-br rounded-tl rounded-bl w-1/3 "
+                      onClick={() => setupUser()}
+                    >
+                      {"Setup"}
+                    </button>
+                  )} */}
+                  <button
+                      className="mr-20 bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-tr rounded-br rounded-tl rounded-bl w-1/3 "
+                      onClick={() => setUser()}
+                    >
+                      {"Setup"}
+                    </button>
+
+                    <button
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-tr rounded-br rounded-tl rounded-bl w-1/3 "
+                      onClick={() => batchMint()}
+                    >
+                      {"Batch Mint"}
+                    </button>
+
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </>
