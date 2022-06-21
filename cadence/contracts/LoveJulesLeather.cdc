@@ -28,8 +28,8 @@
     and those cases need to be handled by the caller.
 */
 
-import NonFungibleToken from "../standard/NonFungibleToken.cdc"
-import MetadataViews from "../standard/MetadataViews.cdc"
+import NonFungibleToken from 0x1d7e57aa55817448
+import MetadataViews from 0x1d7e57aa55817448
  
 pub contract LoveJulesLeather: NonFungibleToken {
   
