@@ -6,6 +6,10 @@ Contract on the Flow blockchain that allows Admins to batch mint native NFTs(`Lo
 Admins are granted power through the `Admin` resource.
 Admins can withdraw NFTs that reside in the `LoveJulesLeatherCollection` resource to recipients
 
+## Mainnet Contract
+
+[Flowscan: LoveJulesLeather.cdc](https://flowscan.org/contract/A.6a8a6bd12143eaa5.LoveJulesLeather/overview)
+
 ## Live Project
 
 N/A
@@ -16,14 +20,14 @@ N/A
 
 ## Roadmap
 
-### V1:
+* ### V1:
 
-Restricted functions, resources, and capabilities.
+	Restricted functions, resources, and capabilities.
 
-- [Admin] Mint native NFTs
-- [Admin] Batch mint native NFTs
-- [Admin] Send native NFT to recipients
-- [Admin] Destroy native NFT resource
+	- [Admin] Mint native NFTs
+	- [Admin] Batch mint native NFTs
+	- [Admin] Send native NFT to recipients
+	- [Admin] Destroy native NFT resource
 
 ## Metadata schema
 
@@ -73,9 +77,11 @@ Restricted functions, resources, and capabilities.
 
 ## Sequence Diagram
 
-**Transactions**
-Admin
-Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
+### Transactions
+
+**Admin**
+
+* Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
 
 ```mermaid
 					  sequenceDiagram
@@ -85,7 +91,7 @@ Admin sends tx to batch mint native NFT(`LoveJulesLeather`)
 					  L->>A: Receives batch of LoveJulesLeather NFTs into LoveJulesLeatherCollection
 ```
 
-Admin sends tx to withdraw NFT from storage and deposit it to claimer
+* Admin sends tx to withdraw NFT from storage and deposit it to claimer
 
 ```mermaid
 					  sequenceDiagram
@@ -96,7 +102,7 @@ Admin sends tx to withdraw NFT from storage and deposit it to claimer
 					  L->>U: Receives LoveJulesLeather NFT
 ```
 
-Admin sends tx to create a new Admin Resource
+* Admin sends tx to create a new Admin Resource
 
 ```mermaid
 					  sequenceDiagram
@@ -107,9 +113,11 @@ Admin sends tx to create a new Admin Resource
 					  L->>A2: Receives Admin resource
 ```
 
-Admin sends tx to destroy Admin resource
-User
-User sends a tx requesting a `LoveJulesLeatherCollection` object
+* [ ] Admin sends tx to destroy Admin resource
+
+**User**
+
+* User sends a tx requesting a `LoveJulesLeatherCollection` object
 
 ```mermaid
 					  sequenceDiagram
@@ -133,67 +141,69 @@ User sends a tx requesting a `LoveJulesLeatherCollection` object
 					       L->>U: Receives LoveJulesLeather NFT
 ```
 
-The Admin will take care of this sequence. User abstracted away from the process.
-**Scripts**
-Admin
-Admin sends tx to get all NFT ids
-~~Admin sents tx to get all NFTs~~
-Admin sends tx to get an NFT by id
-User
+	The Admin will take care of this sequence. User abstracted away from the process.
+
+### Scripts
+
+**Admin**
+
+* Admin sends tx to borrow NFT by id
+* Admin sends tx to borrow entire NFT
+
+**User**
 
 ## Class Diagram
 
-`NFT` resource
+* `NFT` resource
 
-```mermaid
-			  classDiagram
-			  class NFT{
-			  +UInt64 id
-			  +Dictionary metadata
-			  ~init(metadata: string)
-			  }
-```
+	```mermaid
+					classDiagram
+					class NFT{
+					+UInt64 id
+					+Dictionary metadata
+					~init(metadata: string)
+					}
+	```
 
-`CollectionPublic` resource interface
+* `CollectionPublic` resource interface
 
-```mermaid
-			  classDiagram
-			  class CollectionPublic{
-				+Dictionary ownedNFTs
-				+withdraw(withdrawID: UInt64)
-				+deposit(token: NFT)
-				+getIDs()  Array UInt64
-				+borrowNFT(id: UInt64): NonFungibleTokenNFT
-				+borrowEntireNFT(id: UInt64) LoveJulesLeatherNFT
-			  }
-```
+	```mermaid
+					classDiagram
+					class CollectionPublic{
+					+Dictionary ownedNFTs
+					+deposit(token: NFT)
+					+getIDs()  Array UInt64
+					+borrowNFT(id: UInt64): NonFungibleTokenNFT
+					+borrowEntireNFT(id: UInt64) LoveJulesLeatherNFT
+					}
+	```
 
-`Collection` resource
+* `Collection` resource
 
-```mermaid
-			  classDiagram
-			  class Collection{
-				+Dictionary ownedNFTs
-				+withdraw(withdrwaID: UInt64) NFT
-				+deposit(token: NFT)
-				+getIDs() Array UInt64
-				+borrowNFT(id: UInt64) NFT
-				+borrowEntireNFT(id: UInt64) NFT
-				-destroy()
-				-init()
-			  }
-```
+	```mermaid
+					classDiagram
+					class Collection{
+					+Dictionary ownedNFTs
+					+withdraw(withdrwaID: UInt64) NFT
+					+deposit(token: NFT)
+					+getIDs() Array UInt64
+					+borrowNFT(id: UInt64) NFT
+					+borrowEntireNFT(id: UInt64) NFT
+					-destroy()
+					-init()
+					}
+	```
 
-`Admin` resource
+* `Admin` resource
 
-```mermaid
-			  classDiagram
-			  class Admin{
-			  +mintNFT(metadata: Array String)
-			  +batchMint(metadataArray: Objects Array)
-			  +createNewAdmin() Admin
-			  }
-```
+	```mermaid
+					classDiagram
+					class Admin{
+					+mintNFT(metadata: Array String)
+					+batchMint(metadataArray: Objects Array)
+					+createNewAdmin() Admin
+					}
+	```
 
 ## Technical
 
