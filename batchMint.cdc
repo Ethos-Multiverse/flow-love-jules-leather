@@ -347,6 +347,6 @@ let receiver: &{NonFungibleToken.CollectionPublic}
       "image": "https://ipfs.io/ipfs/Qmbg1bK97TtVEFCWQxwS1wS6RufCWdNjSi2T84uCV4dgZB/2010-nfth-50-50.png",
       "serial_number": "2010.NFTH.50.50"
 }])
-    log("minted NFTs in account 4")
+    log("batch mint complete")
   }
 }
