@@ -41,6 +41,10 @@ N/A
 		}
 ```
 
+## IPFS Asset Directory
+
+ [Love Jules Leather Tiger Heads](https://ipfs.io/ipfs/Qmbg1bK97TtVEFCWQxwS1wS6RufCWdNjSi2T84uCV4dgZB)
+
 ## Contract Description
 
 ```javascript
