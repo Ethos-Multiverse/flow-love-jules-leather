@@ -125,7 +125,7 @@ pub contract LoveJulesLeather: NonFungibleToken {
     pub fun deposit(token: @NonFungibleToken.NFT)
     pub fun getIDs(): [UInt64]
     pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
-    pub fun borrowEntireNFT(id: UInt64): &NonFungibleToken.NFT?
+    pub fun borrowEntireNFT(id: UInt64): &LoveJulesLeather.NFT?
   }
 
   // Collection is a resource that every user who owns NFTs
