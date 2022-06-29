@@ -14,8 +14,8 @@ If you see an issue with the code for the contracts, the transactions, scripts, 
 
 | **Network** | **Contract Address** |
 |---|---|
-| Testnet | ---- |
-| Mainnet | ---- |
+| Testnet | [flowscan - testnet](https://testnet.flowscan.org/contract/A.3593499e2fbd34e3.LoveJulesLeather/overview) |
+| Mainnet | [flowscan](https://flowscan.org/contract/A.6a8a6bd12143eaa5.LoveJulesLeather/overview) |
 
 `LoveJulesLeatherMarket.cdc`: This is the love jules 
 leather marketplace contract that allows users to buy and sell their NFTs.
