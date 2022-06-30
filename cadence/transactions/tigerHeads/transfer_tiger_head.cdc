@@ -2,7 +2,6 @@
 import LoveJulesLeather from "../../contracts/LoveJulesLeather.cdc";
 import NonFungibleToken from "../../standard/NonFungibleToken.cdc";
 
-// This transaction transfers a Kitty Item from one account to another.
 transaction(recipient: Address, withdrawID: UInt64) {
     prepare(signer: AuthAccount) {
         
