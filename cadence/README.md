@@ -12,7 +12,7 @@ Admins can withdraw NFTs that reside in the `LoveJulesLeatherCollection` resourc
 
 ## Live Project
 
-N/A
+https://lovejules.ethosnft.com/
 
 ## Video demo
 
